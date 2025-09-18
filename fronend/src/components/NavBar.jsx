@@ -9,7 +9,8 @@ const NavBar = () => {
   return (
     <div className='flex justify-between items-center py-5 font-medium relative bg-white'>
       {/* Logo */}
-      <img src={assets.logo} alt="Logo" />
+      <Link to={"/"}>      <img src={assets.logo} alt="Logo" />
+</Link>
 
       {/* Links - Desktop */}
       <div className='flex space-x-4 sm:flex hidden'>
