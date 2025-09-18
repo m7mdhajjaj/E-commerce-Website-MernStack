@@ -1,6 +1,9 @@
 import React from 'react'
 
 const NewsLettersBox = () => {
+    const onsubmithandler = (e) => {
+        e.preventDefault();
+    }
   return (
     <div className="p-6 text-center">
       <p className="font-semibold text-lg">Subscribe now & get 20% off</p>
@@ -8,7 +11,7 @@ const NewsLettersBox = () => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, animi?
       </p>
 
-      <form className="flex mt-6  border border-gray-300 rounded-xl overflow-hidden max-w-4xl mx-auto ">
+      <form onSubmit={onsubmithandler} className="flex mt-6  border border-gray-300 rounded-xl overflow-hidden max-w-4xl mx-auto ">
         <input
           required
           type="email"
