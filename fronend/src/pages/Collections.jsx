@@ -8,11 +8,39 @@ const Collections = () => {
   const { products } = React.useContext(ShopContext);
   const [showFilters, setShowFilters] = React.useState(false);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
+  const [category,setCategory]= React.useState([]);
+  const [subCategory,setSubCategory]= React.useState([]);
 
   useEffect(() => {
       setSelectedCategories(products);
     
   }, []);
+  useEffect(() => {
+    let filteredProducts = products;
+    if (category.length > 0) {
+      filteredProducts = filteredProducts.filter(product => category.includes(product.category));
+    }
+    if (subCategory.length > 0) {
+      filteredProducts = filteredProducts.filter(product => subCategory.includes(product.subCategory));
+    }
+    setSelectedCategories(filteredProducts);
+  }, [category, subCategory, products]);
+
+  const toggleCategory = (e)=>{
+    if (category.includes(e.target.value)) {
+      setCategory(category.filter(item => item !== e.target.value));
+    } else {
+      setCategory([...category, e.target.value]);
+    }
+
+  }
+  const toggleSubCategory = (e)=>{
+    if (subCategory.includes(e.target.value)) {
+      setSubCategory(subCategory.filter(item => item !== e.target.value));
+    } else {
+      setSubCategory([...subCategory, e.target.value]);
+    }
+  }
 
   return (
     <div className="py-4 flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6">
@@ -30,19 +58,19 @@ const Collections = () => {
         {/* Filters Content */}
         <div className={`space-y-6 ${showFilters ? 'block' : 'hidden'} sm:block`}>
           {/* Categories */}
-          <div className="border border-gray-300 p-4 rounded-lg shadow-sm">
+          <div  className="border border-gray-300 p-4 rounded-lg shadow-sm">
             <p className="text-lg font-medium mb-2 uppercase">Categories</p>
             <div className="space-y-2">
-              <label className="flex items-center space-x-2">
-                <input type="checkbox" value="Men" className="form-checkbox text-gray-600" />
+              <label  className="flex items-center space-x-2">
+                <input onChange={toggleCategory} type="checkbox" value="Men" className="form-checkbox text-gray-600" />
                 <span className="text-gray-700">Men</span>
               </label>
               <label className="flex items-center space-x-2">
-                <input type="checkbox" value="Women" className="form-checkbox text-gray-600" />
+                <input onChange={toggleCategory} type="checkbox" value="Women" className="form-checkbox text-gray-600" />
                 <span className="text-gray-700">Women</span>
               </label>
               <label className="flex items-center space-x-2">
-                <input type="checkbox" value="Kids" className="form-checkbox text-gray-600" />
+                <input onChange={toggleCategory} type="checkbox" value="Kids" className="form-checkbox text-gray-600" />
                 <span className="text-gray-700">Kids</span>
               </label>
             </div>
@@ -52,15 +80,15 @@ const Collections = () => {
             <p className="text-lg font-medium mb-2 uppercase">Type</p>
             <div className="space-y-2">
               <label className="flex items-center space-x-2">
-                <input type="checkbox" value="Topwear" className="form-checkbox text-gray-600" />
+                <input onChange={toggleSubCategory} type="checkbox" value="Topwear" className="form-checkbox text-gray-600" />
                 <span className="text-gray-700">Topwear</span>
               </label>
               <label className="flex items-center space-x-2">
-                <input type="checkbox" value="Bottomwear" className="form-checkbox text-gray-600" />
+                <input onChange={toggleSubCategory} type="checkbox" value="Bottomwear" className="form-checkbox text-gray-600" />
                 <span className="text-gray-700">Bottomwear</span>
               </label>
               <label className="flex items-center space-x-2">
-                <input type="checkbox" value="Winterwear" className="form-checkbox text-gray-600" />
+                <input onChange={toggleSubCategory} type="checkbox" value="Winterwear" className="form-checkbox text-gray-600" />
                 <span className="text-gray-700">Winterwear</span>
               </label>
             </div>
