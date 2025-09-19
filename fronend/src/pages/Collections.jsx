@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets.js';
+import Title from '../components/Title.jsx';
+import ProductItem from '../components/ProductItem.jsx';
 
 const Collections = () => {
-  const { collections } = React.useContext(ShopContext);
+  const { products } = React.useContext(ShopContext);
   const [showFilters, setShowFilters] = React.useState(false);
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
+
+  useEffect(() => {
+      setSelectedCategories(products);
+    
+  }, []);
 
   return (
-    <div className="py-4 flex flex-col items-start space-y-6">
-      {/* Filter Section */}
-      <div className="w-[300px]">
+    <div className="py-4 flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6">
+      {/* Left Side - Filters */}
+      <div className="w-full sm:w-[300px]">
         <div className="flex items-center justify-between mb-4">
           <p className="text-xl font-semibold uppercase">Filters</p>
           <img
@@ -20,43 +28,66 @@ const Collections = () => {
           />
         </div>
         {/* Filters Content */}
-        <div className={`border border-gray-300 p-4 rounded-lg shadow-sm ${showFilters ? 'block' : 'hidden'} sm:block`}>
-          <p className="text-lg font-medium mb-2 uppercase">Categories</p>
-          <div className="space-y-2">
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" value="Men" className="form-checkbox text-gray-600" />
-              <span className="text-gray-700">Men</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" value="Women" className="form-checkbox text-gray-600" />
-              <span className="text-gray-700">Women</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" value="Kids" className="form-checkbox text-gray-600" />
-              <span className="text-gray-700">Kids</span>
-            </label>
+        <div className={`space-y-6 ${showFilters ? 'block' : 'hidden'} sm:block`}>
+          {/* Categories */}
+          <div className="border border-gray-300 p-4 rounded-lg shadow-sm">
+            <p className="text-lg font-medium mb-2 uppercase">Categories</p>
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" value="Men" className="form-checkbox text-gray-600" />
+                <span className="text-gray-700">Men</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" value="Women" className="form-checkbox text-gray-600" />
+                <span className="text-gray-700">Women</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" value="Kids" className="form-checkbox text-gray-600" />
+                <span className="text-gray-700">Kids</span>
+              </label>
+            </div>
+          </div>
+          {/* Type */}
+          <div className="border border-gray-300 p-4 rounded-lg shadow-sm">
+            <p className="text-lg font-medium mb-2 uppercase">Type</p>
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" value="Topwear" className="form-checkbox text-gray-600" />
+                <span className="text-gray-700">Topwear</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" value="Bottomwear" className="form-checkbox text-gray-600" />
+                <span className="text-gray-700">Bottomwear</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" value="Winterwear" className="form-checkbox text-gray-600" />
+                <span className="text-gray-700">Winterwear</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Sub Collections */}
-      <div className={`w-[300px] ${showFilters ? 'block' : 'hidden'} sm:block`}>
-        <div className="border border-gray-300 p-4 rounded-lg shadow-sm">
-          <p className="text-lg font-medium mb-2 uppercase">Type</p>
-          <div className="space-y-2">
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" value="Upperwear" className="form-checkbox text-gray-600" />
-              <span className="text-gray-700">Upperwear</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" value="BottomWear" className="form-checkbox text-gray-600" />
-              <span className="text-gray-700">BottomWear</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" value="Winterwear" className="form-checkbox text-gray-600" />
-              <span className="text-gray-700">Winterwear</span>
-            </label>
-          </div>
+      {/* Right Side - Products */}
+      <div className="flex-1">
+        <div className="flex items-center justify-between mb-6">
+          <Title text1="all" text2="collections" />
+          <select className="border border-gray-300 rounded-lg p-2">
+            <option value="relevant">Sort by: Relevant</option>
+            <option value="low to high">Sort by: Low to High</option>
+            <option value="high to low">Sort by: High to Low</option>
+          </select>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {selectedCategories.map((product, index) => (
+            <ProductItem
+              key={index}
+              id={product.id}
+              name={product.name}
+              image={product.image}
+              price={product.price}
+            />
+          ))}
         </div>
       </div>
     </div>
