@@ -10,9 +10,10 @@ const Collections = () => {
   const [selectedCategories, setSelectedCategories] = React.useState([]);
   const [category,setCategory]= React.useState([]);
   const [subCategory,setSubCategory]= React.useState([]);
+  const [sort,setSort]= React.useState('relevant');
 
   useEffect(() => {
-      setSelectedCategories(products);
+      setSelectedCategories(products.slice(0, 8));
     
   }, []);
   useEffect(() => {
@@ -23,8 +24,14 @@ const Collections = () => {
     if (subCategory.length > 0) {
       filteredProducts = filteredProducts.filter(product => subCategory.includes(product.subCategory));
     }
-    setSelectedCategories(filteredProducts);
-  }, [category, subCategory, products]);
+    if (sort === 'low to high') {
+      filteredProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
+    }
+    else if (sort === 'high to low') {
+      filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
+    }
+    setSelectedCategories(filteredProducts.slice(0, 8));
+  }, [category, subCategory, products, sort]);
 
   const toggleCategory = (e)=>{
     if (category.includes(e.target.value)) {
@@ -40,6 +47,9 @@ const Collections = () => {
     } else {
       setSubCategory([...subCategory, e.target.value]);
     }
+  }
+  const toggleOption =(e)=>{
+    setSort(e.target.value);
   }
 
   return (
@@ -100,8 +110,8 @@ const Collections = () => {
       <div className="flex-1">
         <div className="flex items-center justify-between mb-6">
           <Title text1="all" text2="collections" />
-          <select className="border border-gray-300 rounded-lg p-2">
-            <option value="relevant">Sort by: Relevant</option>
+          <select value={sort} onChange={toggleOption} className="border border-gray-300 rounded-lg p-2">
+            <option  value="relevant">Sort by: Relevant</option>
             <option value="low to high">Sort by: Low to High</option>
             <option value="high to low">Sort by: High to Low</option>
           </select>
