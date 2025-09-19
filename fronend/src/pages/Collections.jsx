@@ -128,7 +128,7 @@ const Collections = () => {
           {selectedCategories.map((product, index) => (
             <ProductItem
               key={index}
-              id={product.id}
+              id={product._id}
               name={product.name}
               image={product.image}
               price={product.price}
