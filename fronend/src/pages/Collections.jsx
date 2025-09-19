@@ -5,7 +5,7 @@ import Title from '../components/Title.jsx';
 import ProductItem from '../components/ProductItem.jsx';
 
 const Collections = () => {
-  const { products } = React.useContext(ShopContext);
+  const { products, search,setSearch } = React.useContext(ShopContext);
   const [showFilters, setShowFilters] = React.useState(false);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
   const [category,setCategory]= React.useState([]);
@@ -18,6 +18,14 @@ const Collections = () => {
   }, []);
   useEffect(() => {
     let filteredProducts = products;
+
+    if (search.trim() !== '') {
+      const lowercasedSearch = search.toLowerCase();
+      filteredProducts = filteredProducts.filter(product =>
+        product.name.toLowerCase().includes(lowercasedSearch)
+      );
+    }
+
     if (category.length > 0) {
       filteredProducts = filteredProducts.filter(product => category.includes(product.category));
     }
@@ -31,7 +39,7 @@ const Collections = () => {
       filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
     }
     setSelectedCategories(filteredProducts.slice(0, 8));
-  }, [category, subCategory, products, sort]);
+  }, [category, subCategory, products, sort, search]);
 
   const toggleCategory = (e)=>{
     if (category.includes(e.target.value)) {

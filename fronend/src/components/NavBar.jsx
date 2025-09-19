@@ -2,10 +2,16 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { assets } from '../assets/assets.js'
 import { FiMenu, FiX } from 'react-icons/fi'
-
+import { ShopContext } from '../context/ShopContext.jsx'
+import  { useContext } from 'react'
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
+  const { showSearch, setShowSearch } = useContext(ShopContext);
 
+  const handleSearch = () => {
+    setShowSearch(!showSearch);
+  }
+  
   return (
     <div className='flex justify-between items-center py-5 font-medium relative bg-white'>
       {/* Logo */}
@@ -33,6 +39,8 @@ const NavBar = () => {
           src={assets.search_icon}
           alt="Search Icon"
           className="w-8 h-8 object-contain"
+          onClick={handleSearch}
+          
         />
 
         {/* Profile Dropdown */}

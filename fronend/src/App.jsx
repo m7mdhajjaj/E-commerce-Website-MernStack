@@ -10,11 +10,12 @@ import PlaceOrder from './pages/PlaceOrder'
 import Product from './pages/Product'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-
+import Search from './components/Search'
 const App = () => {
   return (
     <div  className='max-w-screen-xl mx-auto '> 
       <NavBar />
+      <Search />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
