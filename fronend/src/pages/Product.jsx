@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext.jsx';
 import { assets } from '../assets/assets.js';
+import RelatedProduct from '../components/RelatedProduct.jsx';
 
 const Product = () => {
   const { id } = useParams();
@@ -95,6 +96,8 @@ const Product = () => {
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, doloremque!</p>
         </div>
       </div>
+      {/* display related products */}
+      <RelatedProduct Category={product.category} subCategory={product.subCategory} />
     </div>
   ) : (
     <div>
