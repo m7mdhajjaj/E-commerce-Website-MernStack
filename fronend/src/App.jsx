@@ -11,11 +11,15 @@ import Product from './pages/Product'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import Search from './components/Search'
+
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <div  className='max-w-screen-xl mx-auto '> 
       <NavBar />
       <Search />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
