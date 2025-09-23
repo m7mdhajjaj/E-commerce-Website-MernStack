@@ -4,6 +4,7 @@ import React from 'react'
 export const ShopContext = createContext();
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
  const ShopContextProvider = ( props ) => {
     const currency = '$';
     const deliveryFee = 10;
@@ -69,7 +70,7 @@ const getTotalAmount =  () => {
   return totalAmount;
 };
 
-
+const Navigate = useNavigate();
  const value = {
         products,
         currency,
@@ -83,7 +84,8 @@ const getTotalAmount =  () => {
         addtoCart,
         getCartCount,
         updateQuantity,
-        getTotalAmount
+        getTotalAmount,
+        Navigate
     }
 
     

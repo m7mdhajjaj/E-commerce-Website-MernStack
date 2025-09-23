@@ -4,8 +4,9 @@ import { useContext } from 'react'
 import { assets } from '../assets/assets.js'
 import { toast } from 'react-toastify'
 import TotalAmount from '../components/TotalAmount.jsx'
+
 const Cart = () => {
-  const { cartItems , currency , products, updateQuantity,setCartItems } = useContext(ShopContext);
+  const { cartItems , currency , products, updateQuantity,setCartItems, Navigate } = useContext(ShopContext);
 
 
   const deleteItem = (itemId, size) => {
@@ -62,6 +63,9 @@ const Cart = () => {
         </div>
       )}
       {Object.keys(cartItems).length > 0 && <TotalAmount />}
+      <div>
+        <button  onClick={() => Navigate('/place-order')} className='w-full bg-black text-white py-3 mt-6 rounded hover:bg-gray-800 transition-colors'>Proceed to Checkout</button>
+      </div>
     </div>
   )
 }
