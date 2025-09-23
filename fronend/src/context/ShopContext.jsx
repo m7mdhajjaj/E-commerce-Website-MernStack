@@ -50,6 +50,26 @@ import { toast } from "react-toastify";
 
   return totalCount;
 };
+const updateQuantity = async (itemId, size, delta) => {
+  let CartData = structuredClone(cartItems);
+  CartData[itemId][size] = delta;
+  setCartItems(CartData);
+};
+
+const getTotalAmount =  () => {
+  let totalAmount = 0;
+  for (const itemId in cartItems) {
+    const product = products.find((p) => p._id === itemId);
+    if (product) {
+      for (const size in cartItems[itemId]) {
+        totalAmount += product.price * cartItems[itemId][size];
+      }
+    }
+  }
+  return totalAmount;
+};
+
+
  const value = {
         products,
         currency,
@@ -61,7 +81,9 @@ import { toast } from "react-toastify";
         cartItems,
         setCartItems,
         addtoCart,
-        getCartCount
+        getCartCount,
+        updateQuantity,
+        getTotalAmount
     }
 
     
