@@ -19,7 +19,7 @@ const NavBar = () => {
 </Link>
 
       {/* Links - Desktop */}
-      <div className='flex space-x-4 sm:flex hidden'>
+      <div className=' space-x-4 sm:flex '>
         {["Home", "About", "Contact", "Collections"].map((text) => (
           <div key={text} className="flex flex-col items-center">
             <Link
@@ -45,11 +45,14 @@ const NavBar = () => {
 
         {/* Profile Dropdown */}
         <div className="relative group">
-          <img
+          <Link to="/login">
+           <img
             src={assets.profile_icon}
             alt="Profile Icon"
             className="w-8 h-8 object-contain cursor-pointer"
           />
+          </Link>
+         
           <div className="absolute right-0 hidden group-hover:block z-10">
             <div className="bg-white shadow-md rounded-md mt-2 p-4 flex flex-col space-y-2">
               <Link to="/profile" className="text-gray-600 hover:text-gray-800">Profile</Link>
